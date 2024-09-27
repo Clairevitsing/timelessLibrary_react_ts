@@ -7,6 +7,7 @@ import { router } from './Routes/Routes';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import '../node_modules/font-awesome/css/font-awesome.min.css';
+import 'react-toastify/dist/ReactToastify.css'
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
