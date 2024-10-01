@@ -8,7 +8,7 @@ import { loginAPI, registerAPI } from "../Services/AuthService";
 type UserContextType = {
     user: UserProfile | null;
     token: string | null;
-    registerUser: (firstName: string, lastName: string, userName: string, phoneNumber: string, email: string, password: string) => Promise<void>;
+    registerUser: (firstName: string, lastName: string, userName: string, phoneNumber: string, email: string, password: string, role: string, subStartDate: string, subEndDate:string) => Promise<void>;
     loginUser: (email: string, password: string) => Promise<void>;
     logout: () => void;
     isLoggedIn: () => boolean;
@@ -43,10 +43,14 @@ export const UserProvider: React.FC<Props> = ({ children }) => {
                 const userObj: UserProfile = {
                     email: userData.email,
                     password: userData.password,
-                    firstName: "",  // These fields are not provided by loginAPI
-                    lastName: "",   // You might want to fetch these separately
-                    userName: "",   // or adjust your API to return this information
-                    phoneNumber: ""
+                    // These fields are not provided by loginAPI
+                    firstName: "",  
+                    lastName: "",   
+                    userName: "",   
+                    phoneNumber: "",
+                    role: "",
+                    subStartDate: "",
+                    subEndDate: ""
                 };
                 localStorage.setItem("user", JSON.stringify(userObj));
                 setToken(userData.token);
@@ -65,16 +69,18 @@ export const UserProvider: React.FC<Props> = ({ children }) => {
         userName: string,
         phoneNumber: string,
         email: string,
-        password: string
+        password: string,
+        role: string,
+        subStartDate: string,
+        subEndDate:string
     ) => {
         try {
-            const res = await registerAPI(firstName, lastName, userName, phoneNumber, email, password);
+            const res = await registerAPI(firstName, lastName, userName, phoneNumber, email, password, role, subStartDate, subEndDate);
             if (res && res.data) {
                 const userData: UserProfile = res.data;
-                // Assuming your API returns a token upon registration. If not, you might need to log in separately.
-                localStorage.setItem("token", "dummy_token"); // Replace with actual token if available
+                localStorage.setItem("token", "dummy_token"); 
                 localStorage.setItem("user", JSON.stringify(userData));
-                setToken("dummy_token"); // Replace with actual token if available
+                setToken("dummy_token"); 
                 setUser(userData);
                 toast.success("Registration Success!");
                 navigate("/search");

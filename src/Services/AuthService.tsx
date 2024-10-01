@@ -8,7 +8,7 @@ const BASE_API_URL = "http://127.0.0.1:8000/api";
 
 export const loginAPI = async (email: string, password: string) => {
     try {
-        const data = await axios.post<UserProfileToken>(BASE_API_URL + "/login", {
+        const data = await axios.post<UserProfileToken>(BASE_API_URL + "/login_check", {
             email: email,
             password: password
         });
@@ -24,7 +24,11 @@ export const registerAPI = async (
     userName: string,
     phoneNumber: string,
     email: string,
-    password: string) => {
+    password: string,
+    role: string,
+    subStartDate: string,
+    subEndDate: string
+) => {
      try{
          const data = await axios.post<UserProfile>(BASE_API_URL + "/register", {
             firstName: firstName,
@@ -32,7 +36,11 @@ export const registerAPI = async (
             userName: userName,
             phoneNumber: phoneNumber,
             email: email,
-            password: password
+             password: password,
+             role: role,
+             subStartDate: subStartDate,
+             subEndDate:subEndDate
+
         });
         return data;
     } catch (error) {

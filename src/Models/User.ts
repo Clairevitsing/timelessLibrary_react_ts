@@ -10,5 +10,8 @@ export type UserProfile = {
     userName: string,
     phoneNumber: string,
     email: string,
-    password: string
+    password: string,
+    role: string,
+    subStartDate: string,
+    subEndDate: string
 }

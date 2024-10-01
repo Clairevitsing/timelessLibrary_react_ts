@@ -1,6 +1,7 @@
 import React from 'react';
 import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { Link } from 'react-router-dom';
 import { useAuth } from "../../Context/useAuth";
 import { useForm } from "react-hook-form";
 import 'react-toastify/dist/ReactToastify.css'
@@ -87,7 +88,7 @@ const LoginPage: React.FC<Props> = () => {
                         </button>
                     </form>
                     <p className="text-center mt-3">
-                        Don't have an account yet? <a href="#" className="text-decoration-none">Sign up</a>
+                        Don't have an account yet? <Link to="/register" className="text-decoration-none">Sign up</Link>
                     </p>
                 </div>
             </div>
