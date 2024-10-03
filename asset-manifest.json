@@ -1,21 +1,21 @@
 {
   "files": {
-    "main.css": "/%7Brepository-name%7D/static/css/main.7f12ecdd.css",
-    "main.js": "/%7Brepository-name%7D/static/js/main.747d3a74.js",
-    "static/js/453.405a5e35.chunk.js": "/%7Brepository-name%7D/static/js/453.405a5e35.chunk.js",
-    "static/media/fontawesome-webfont.svg?v=4.7.0": "/%7Brepository-name%7D/static/media/fontawesome-webfont.c1e38fd9e0e74ba58f7a.svg",
-    "static/media/fontawesome-webfont.eot": "/%7Brepository-name%7D/static/media/fontawesome-webfont.8b43027f47b20503057d.eot",
-    "static/media/fontawesome-webfont.ttf?v=4.7.0": "/%7Brepository-name%7D/static/media/fontawesome-webfont.1e59d2330b4c6deb84b3.ttf",
-    "static/media/fontawesome-webfont.woff?v=4.7.0": "/%7Brepository-name%7D/static/media/fontawesome-webfont.f691f37e57f04c152e23.woff",
-    "static/media/fontawesome-webfont.woff2?v=4.7.0": "/%7Brepository-name%7D/static/media/fontawesome-webfont.20fd1704ea223900efa9.woff2",
-    "static/media/logo.png": "/%7Brepository-name%7D/static/media/logo.ff61aac9f945b456200d.png",
-    "index.html": "/%7Brepository-name%7D/index.html",
-    "main.7f12ecdd.css.map": "/%7Brepository-name%7D/static/css/main.7f12ecdd.css.map",
-    "main.747d3a74.js.map": "/%7Brepository-name%7D/static/js/main.747d3a74.js.map",
-    "453.405a5e35.chunk.js.map": "/%7Brepository-name%7D/static/js/453.405a5e35.chunk.js.map"
+    "main.css": "/timelessLibrary_react_ts/static/css/main.3fedf23e.css",
+    "main.js": "/timelessLibrary_react_ts/static/js/main.3e175623.js",
+    "static/js/453.405a5e35.chunk.js": "/timelessLibrary_react_ts/static/js/453.405a5e35.chunk.js",
+    "static/media/fontawesome-webfont.svg?v=4.7.0": "/timelessLibrary_react_ts/static/media/fontawesome-webfont.c1e38fd9e0e74ba58f7a.svg",
+    "static/media/fontawesome-webfont.eot": "/timelessLibrary_react_ts/static/media/fontawesome-webfont.8b43027f47b20503057d.eot",
+    "static/media/fontawesome-webfont.ttf?v=4.7.0": "/timelessLibrary_react_ts/static/media/fontawesome-webfont.1e59d2330b4c6deb84b3.ttf",
+    "static/media/fontawesome-webfont.woff?v=4.7.0": "/timelessLibrary_react_ts/static/media/fontawesome-webfont.f691f37e57f04c152e23.woff",
+    "static/media/fontawesome-webfont.woff2?v=4.7.0": "/timelessLibrary_react_ts/static/media/fontawesome-webfont.20fd1704ea223900efa9.woff2",
+    "static/media/logo.png": "/timelessLibrary_react_ts/static/media/logo.ff61aac9f945b456200d.png",
+    "index.html": "/timelessLibrary_react_ts/index.html",
+    "main.3fedf23e.css.map": "/timelessLibrary_react_ts/static/css/main.3fedf23e.css.map",
+    "main.3e175623.js.map": "/timelessLibrary_react_ts/static/js/main.3e175623.js.map",
+    "453.405a5e35.chunk.js.map": "/timelessLibrary_react_ts/static/js/453.405a5e35.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.7f12ecdd.css",
-    "static/js/main.747d3a74.js"
+    "static/css/main.3fedf23e.css",
+    "static/js/main.3e175623.js"
   ]
 }
