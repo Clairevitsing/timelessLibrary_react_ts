@@ -162,8 +162,8 @@ const RegisterForm = () => {
             id="roles"
             {...register("roles")}
           >
-            <option value="user">User</option>
-            <option value="admin">Admin</option>
+            <option value="ROLE_USER">User</option>
+            <option value="ROLE_ADMIN">Admin</option>
           </select>
           {errors.roles && (
             <p className="text-danger">{errors.roles.message}</p>

@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { fetchBookDetails } from '../../Services/BookService';
 import { Book } from '../../Models/Book'; 
+import { useAuth } from '../../Context/useAuth';
+
 
 const BookDetailPage = () => {
     const { id } = useParams();
@@ -9,6 +11,8 @@ const BookDetailPage = () => {
     const [book, setBook] = useState<Book | null>(null); 
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
+    const { user, isLoggedIn } = useAuth();
+    const isAdmin = user && user.roles.includes('ROLE_ADMIN');
 
     useEffect(() => {
         if (id) {
@@ -51,8 +55,12 @@ const BookDetailPage = () => {
                 </ul>
                 <div className="card-body">
                     <a href="#" className="card-link">Add to Card</a>
-                    <a href="#" className="card-link">Edit</a>
-                    <a href="#" className="card-link">Delete</a>
+                         {isAdmin && (
+                        <>
+                            <a href="#" className="card-link">Edit</a>
+                            <a href="#" className="card-link">Delete</a>
+                        </>
+                    )}
                 </div>
             </div>
         </div>

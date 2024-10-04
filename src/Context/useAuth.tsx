@@ -12,11 +12,13 @@ type UserContextType = {
     loginUser: (userName:string, email: string, password: string) => Promise<void>;
     logout: () => void;
     isLoggedIn: () => boolean;
+    isAdmin: () => boolean;
 };
 
 type Props = { children: React.ReactNode };
 
 const UserContext = createContext<UserContextType>({} as UserContextType);
+
 
 export const UserProvider: React.FC<Props> = ({ children }) => {
     const navigate = useNavigate();
@@ -89,9 +91,9 @@ export const UserProvider: React.FC<Props> = ({ children }) => {
         }
     };
 
-    const isLoggedIn = () => {
-        return !!user;
-    }
+    // const isLoggedIn = () => {
+    //     return !!user;
+    // }
 
     const logout = () => { 
         localStorage.removeItem("token");
@@ -114,8 +116,11 @@ export const UserProvider: React.FC<Props> = ({ children }) => {
     navigate("/")
     }
 
+    const isLoggedIn = (): boolean => !!user;
+    const isAdmin = (): boolean => !!user && user.roles.includes('admin'); 
+
     return (
-        <UserContext.Provider value={{ loginUser, registerUser, user, token, logout, isLoggedIn }}>
+        <UserContext.Provider value={{ loginUser, registerUser, user, token, logout, isLoggedIn,isAdmin }}>
             {isReady ? children : null}
         </UserContext.Provider>
     );
