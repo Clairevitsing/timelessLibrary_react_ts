@@ -29,12 +29,18 @@ const BookDetailPage = () => {
     if (!book) return <div>No book found</div>;
 
     return (
-        <div className="container mt-4">
-            <div className="card" style={{ width: '18rem' }}>
+        <div className="container mt-4 d-flex justify-content-center align-items-center" >
+             <div className="card" style={{ width: '30rem' }}> 
                 <img className="card-img-top" src={book.image} alt={`Cover of ${book.title}`} />
                 <div className="card-body">
                     <h5 className="card-title">{book.title}</h5>
                     <p className="card-text">{book.description}</p>
+                    <p className="card-text">
+                        <strong>Status:</strong>
+                        <span className={`badge ${book.available ? 'bg-success' : 'bg-warning'}`}>
+                            {book.available ? 'Available' : 'Unavailable'}
+                        </span>
+                    </p>
                 </div>
                 <ul className="list-group list-group-flush">
                     {book.authors.map((author) => (
@@ -44,8 +50,9 @@ const BookDetailPage = () => {
                     ))}
                 </ul>
                 <div className="card-body">
-                    <a href="#" className="card-link">More details</a>
-                    <a href="#" className="card-link">Another link</a>
+                    <a href="#" className="card-link">Add to Card</a>
+                    <a href="#" className="card-link">Edit</a>
+                    <a href="#" className="card-link">Delete</a>
                 </div>
             </div>
         </div>
