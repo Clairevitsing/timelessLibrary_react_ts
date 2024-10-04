@@ -7,6 +7,7 @@ import Contact from "../Pages/Contact/Contact";
 import LoginPage from "../Pages/LoginPage/LoginPage";
 import RegisterPage from "../Pages/RegisterPage/RegisterPage";
 import CategoryPage from "../Pages/CategoryPage/CategoryPage";
+import BookDetailPage from "../Pages/BookDetailPage/BookDetailPage";
 import Voluptaten from "../Components/Voluptaten/Voluptaten";
 
 export const router = createBrowserRouter([
@@ -20,7 +21,8 @@ export const router = createBrowserRouter([
             { path: "contact", element: <Contact /> },
             { path: "login", element: <LoginPage /> },
             { path: "register", element: <RegisterPage /> },
-            { path:"logout", element: <HomePage /> },
+            { path: "logout", element: <HomePage /> },
+            { path: "book/:id", element: <BookDetailPage /> },
             
             {
                 path: "category/:ticker",

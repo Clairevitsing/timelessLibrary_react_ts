@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { fetchNewBooks } from '../../Services/BookService';
 import { Book } from '../../Models/Book';
+import { useNavigate } from 'react-router-dom';  
 
 const NewBooks: React.FC = () => {
     const [books, setBooks] = useState<Book[]>([]);
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState('');
+    const navigate = useNavigate(); 
 
     useEffect(() => {
         fetchNewBooks().then(books => {
@@ -19,6 +21,11 @@ const NewBooks: React.FC = () => {
 
     if (isLoading) return <div>Loading...</div>;
     if (error) return <div>Error: {error}</div>;
+
+    const handleDetailsClick = (id: number) => {
+         // Navigate to the book detail page
+        navigate(`/book/${id}`);  
+    };
 
     return (
         <div className="container mt-4">
@@ -36,7 +43,7 @@ const NewBooks: React.FC = () => {
                                         <li key={author.id}>{author.firstName} {author.lastName}</li>
                                     ))}
                                 </ul>
-                                <button className="btn btn-primary">Details</button>
+                                 <button className="btn btn-primary" onClick={() => handleDetailsClick(book.id)}>Details</button>
                             </div>
                         </div>
                     </div>
