@@ -9,7 +9,7 @@ type UserContextType = {
     user: UserProfile | null;
     token: string | null;
     registerUser: (firstName: string, lastName: string, userName: string, phoneNumber: string, email: string, password: string, roles: string[], subStartDate: string, subEndDate:string) => Promise<void>;
-    loginUser: (email: string, password: string) => Promise<void>;
+    loginUser: (userName:string, email: string, password: string) => Promise<void>;
     logout: () => void;
     isLoggedIn: () => boolean;
 };
@@ -34,7 +34,7 @@ export const UserProvider: React.FC<Props> = ({ children }) => {
         setIsReady(true);
     }, []);
 
-    const loginUser = async (email: string, password: string) => {
+    const loginUser = async (userName: string, email: string, password: string) => {
         try {
             const res = await loginAPI(email, password);
             if (res && res.data) {
@@ -46,7 +46,7 @@ export const UserProvider: React.FC<Props> = ({ children }) => {
                     // These fields are not provided by loginAPI
                     firstName: "",  
                     lastName: "",   
-                    userName: "",   
+                    userName:userData.userName,   
                     phoneNumber: "",
                     roles: [""],
                     subStartDate: "",
@@ -56,13 +56,12 @@ export const UserProvider: React.FC<Props> = ({ children }) => {
                 setToken(userData.token);
                 setUser(userObj);
                 toast.success("Login Success!");
-                navigate("/search");
+                navigate("/");
             }
         } catch (e) {
             toast.warning("Server error occurred");
         }
     };
-
     const registerUser = async (
         firstName: string,
         lastName: string,
@@ -99,7 +98,20 @@ export const UserProvider: React.FC<Props> = ({ children }) => {
         localStorage.removeItem("user");
         setUser(null);
         setToken(null);
-        navigate("/")
+      
+
+     // Providing feedback to the user
+    toast.info("You've been logged out successfully.", {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+    });
+        
+    navigate("/")
     }
 
     return (

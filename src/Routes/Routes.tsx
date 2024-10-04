@@ -20,6 +20,8 @@ export const router = createBrowserRouter([
             { path: "contact", element: <Contact /> },
             { path: "login", element: <LoginPage /> },
             { path: "register", element: <RegisterPage /> },
+            { path:"logout", element: <HomePage /> },
+            
             {
                 path: "category/:ticker",
                 element: <CategoryPage />, 
