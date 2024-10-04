@@ -8,7 +8,7 @@ import { loginAPI, registerAPI } from "../Services/AuthService";
 type UserContextType = {
     user: UserProfile | null;
     token: string | null;
-    registerUser: (firstName: string, lastName: string, userName: string, phoneNumber: string, email: string, password: string, role: string, subStartDate: string, subEndDate:string) => Promise<void>;
+    registerUser: (firstName: string, lastName: string, userName: string, phoneNumber: string, email: string, password: string, roles: string[], subStartDate: string, subEndDate:string) => Promise<void>;
     loginUser: (email: string, password: string) => Promise<void>;
     logout: () => void;
     isLoggedIn: () => boolean;
@@ -48,7 +48,7 @@ export const UserProvider: React.FC<Props> = ({ children }) => {
                     lastName: "",   
                     userName: "",   
                     phoneNumber: "",
-                    role: "",
+                    roles: [""],
                     subStartDate: "",
                     subEndDate: ""
                 };
@@ -70,12 +70,12 @@ export const UserProvider: React.FC<Props> = ({ children }) => {
         phoneNumber: string,
         email: string,
         password: string,
-        role: string,
+        roles: string[],
         subStartDate: string,
         subEndDate:string
     ) => {
         try {
-            const res = await registerAPI(firstName, lastName, userName, phoneNumber, email, password, role, subStartDate, subEndDate);
+            const res = await registerAPI(firstName, lastName, userName, phoneNumber, email, password, roles, subStartDate, subEndDate);
             if (res && res.data) {
                 const userData: UserProfile = res.data;
                 localStorage.setItem("token", "dummy_token"); 

@@ -11,7 +11,7 @@ type RegisterFormsInputs = {
   phoneNumber: string,
   email: string,
   password: string,
-  role: 'user' | 'admin',
+  roles: string[],
   subStartDate: string,
   subEndDate: string,
 };
@@ -23,7 +23,9 @@ const validationSchema = Yup.object().shape({
   phoneNumber: Yup.string().required('Phone number is required'),
   email: Yup.string().email('Invalid email').required('Email is required'),
   password: Yup.string().required('Password is required').min(6, 'Password must be at least 6 characters'),
-  role: Yup.string().oneOf(['user', 'admin'], 'Invalid role').required('Role is required'),
+  roles: Yup.array()
+    .of(Yup.string().required('Role is required')) // Ensure each element is a string
+    .required('Roles is required'), // Ensure at least one role is selected
   subStartDate: Yup.string().required('Subscription start date is required'),
   subEndDate: Yup.string()
     .test('is-after-start-date', "End date can't be before start date", function(endDate) {
@@ -40,7 +42,7 @@ const RegisterForm = () => {
   const { register, handleSubmit, formState: { errors } } = useForm<RegisterFormsInputs>({
     resolver: yupResolver(validationSchema),
     defaultValues: {
-      role: 'user',
+      roles: ['user'],
       subStartDate: new Date().toISOString().slice(0, 16),
       subEndDate: new Date(new Date().setFullYear(new Date().getFullYear() + 1)).toISOString().slice(0, 16),
     },
@@ -57,7 +59,7 @@ const RegisterForm = () => {
       data.phoneNumber,
       data.email,
       data.password,
-      data.role,
+      data.roles,
       data.subStartDate,
       data.subEndDate
 
@@ -154,17 +156,17 @@ const RegisterForm = () => {
           )}
         </div>
         <div className="mb-3">
-          <label htmlFor="role" className="form-label">Role</label>
-          <select
+          <label htmlFor="roles" className="form-label">Roles</label>
+          <select multiple
             className="form-select"
-            id="role"
-            {...register("role")}
+            id="roles"
+            {...register("roles")}
           >
             <option value="user">User</option>
             <option value="admin">Admin</option>
           </select>
-          {errors.role && (
-            <p className="text-danger">{errors.role.message}</p>
+          {errors.roles && (
+            <p className="text-danger">{errors.roles.message}</p>
           )}
         </div>
         <div className="mb-3">

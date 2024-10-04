@@ -25,7 +25,7 @@ export const registerAPI = async (
     phoneNumber: string,
     email: string,
     password: string,
-    role: string,
+    roles: string[],
     subStartDate: string,
     subEndDate: string
 ) => {
@@ -37,7 +37,7 @@ export const registerAPI = async (
             phoneNumber: phoneNumber,
             email: email,
              password: password,
-             role: role,
+             roles: roles,
              subStartDate: subStartDate,
              subEndDate:subEndDate
 
