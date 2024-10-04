@@ -2,7 +2,7 @@
   "name": "timelesslibrary_react_ts",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://{username}.github.io/{repository-name}",
+  "homepage": "/",
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.6.0",
     "@fortawesome/free-solid-svg-icons": "^6.6.0",
