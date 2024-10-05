@@ -1,7 +1,7 @@
 import { Author } from './Author';
 import { Category } from './Category';
 
-export interface Book {
+export type Book = {
   id: number;
   title: string;
   ISBN: string;
@@ -11,4 +11,15 @@ export interface Book {
   available: boolean;
   authors: Author[]; 
   category?: Category;  
+}
+
+export type NewBookData = {
+    title: string;
+    ISBN: string;
+    publishedYear: Date;
+    description: string;
+    image: string;
+    available: boolean;
+    authorIds: number[]; 
+    categoryId: number; 
 }

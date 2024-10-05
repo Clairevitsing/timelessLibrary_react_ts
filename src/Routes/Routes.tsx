@@ -8,6 +8,8 @@ import LoginPage from "../Pages/LoginPage/LoginPage";
 import RegisterPage from "../Pages/RegisterPage/RegisterPage";
 import CategoryPage from "../Pages/CategoryPage/CategoryPage";
 import BookDetailPage from "../Pages/BookDetailPage/BookDetailPage";
+import BookCreateForm from "../Pages/BookCreateForm/BookCreateForm";
+import BookEditPage from "../Pages/BookEditPage/BookEditPage";
 import Voluptaten from "../Components/Voluptaten/Voluptaten";
 
 export const router = createBrowserRouter([
@@ -23,6 +25,8 @@ export const router = createBrowserRouter([
             { path: "register", element: <RegisterPage /> },
             { path: "logout", element: <HomePage /> },
             { path: "book/:id", element: <BookDetailPage /> },
+            { path: "book/edit", element: <BookEditPage /> },
+            { path: "book/new", element: <BookCreateForm /> },
             
             {
                 path: "category/:ticker",

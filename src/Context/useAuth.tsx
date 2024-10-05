@@ -12,7 +12,6 @@ type UserContextType = {
     loginUser: (userName:string, email: string, password: string) => Promise<void>;
     logout: () => void;
     isLoggedIn: () => boolean;
-    isAdmin: () => boolean;
 };
 
 type Props = { children: React.ReactNode };
@@ -117,10 +116,10 @@ export const UserProvider: React.FC<Props> = ({ children }) => {
     }
 
     const isLoggedIn = (): boolean => !!user;
-    const isAdmin = (): boolean => !!user && user.roles.includes('admin'); 
+   
 
     return (
-        <UserContext.Provider value={{ loginUser, registerUser, user, token, logout, isLoggedIn,isAdmin }}>
+        <UserContext.Provider value={{ loginUser, registerUser, user, token, logout, isLoggedIn }}>
             {isReady ? children : null}
         </UserContext.Provider>
     );

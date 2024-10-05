@@ -1,6 +1,6 @@
 // src/services/BookService.tsx
 import axios from 'axios';
-import { Book } from '../Models/Book';
+import { Book, NewBookData } from '../Models/Book';
 
 const BASE_API_URL = "http://127.0.0.1:8000/api/books";
 
@@ -35,3 +35,26 @@ export const fetchBookDetails = async (bookId: number): Promise<Book> => {
         throw new Error('Failed to fetch book details');
     }
 };
+
+export const fetchBookDetailsForEdit = async (bookId: number): Promise<Book> => {
+  try {
+    const response = await axios.get(`${BASE_API_URL}/${bookId}/edit`);
+    const bookData: Book = response.data;
+    return bookData;
+  } catch (error) {
+    console.error('Error fetching book details for edit:', error);
+    throw new Error('Failed to fetch book details for editing');
+  }
+};
+
+export const createNewBook = async (bookData: NewBookData): Promise<Book> => {
+    try {
+        const response = await axios.post(`${BASE_API_URL}/new`, bookData);
+        const newBook: Book = response.data;
+        console.log('New book created:', newBook);
+        return newBook;
+    } catch (error) {
+        console.error('Failed to create book:', error);
+        throw new Error('Failed to create new book');
+    }
+}

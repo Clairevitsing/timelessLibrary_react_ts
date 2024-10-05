@@ -24,8 +24,10 @@ const validationSchema = Yup.object().shape({
   email: Yup.string().email('Invalid email').required('Email is required'),
   password: Yup.string().required('Password is required').min(6, 'Password must be at least 6 characters'),
   roles: Yup.array()
-    .of(Yup.string().required('Role is required')) // Ensure each element is a string
-    .required('Roles is required'), // Ensure at least one role is selected
+    // Ensure each element is a string
+    .of(Yup.string().required('Role is required')) 
+    // Ensure at least one role is selected
+    .required('Roles is required'), 
   subStartDate: Yup.string().required('Subscription start date is required'),
   subEndDate: Yup.string()
     .test('is-after-start-date', "End date can't be before start date", function(endDate) {
