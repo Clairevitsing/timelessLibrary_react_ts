@@ -1,13 +1,15 @@
-import React, { useEffect} from 'react';
-import { useForm } from 'react-hook-form';
+import React, { useEffect, useState} from 'react';
+import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
-import { NewBookData } from '../../Models/Book';
+import { NewBookData, Book } from '../../Models/Book';
+import { createNewBook } from '../../Services/BookService';
+import { useNavigate } from 'react-router-dom';
 
 const bookSchema = Yup.object().shape({
   title: Yup.string().required('Title is required'),
   ISBN: Yup.string().required('ISBN is required'),
-  publishedYear: Yup.date().required('Published year is required'),
+  publishedYear: Yup.string().required('Published year is required'),
   description: Yup.string().required('Description is required'),
   image: Yup.string().url('Must be a valid URL').required('Image URL is required'),
   available: Yup.boolean().required('Availability is required'),
@@ -15,17 +17,24 @@ const bookSchema = Yup.object().shape({
     .required('Category ID is required')
     .integer('Category ID must be an integer')
     .min(1, 'Category ID must be at least 1'),
-    authorIds: Yup.array().of(Yup.number().required('Valid author ID is required')).required('At least one author is required')
+    authorIds: Yup.array()
+        .of(Yup.number().required('Valid author ID is required'))
+        .required('At least one author is required')
 });
 
+
+
 const BookCreateForm = () => {
-  const { register, handleSubmit, formState: { errors } } = useForm<NewBookData>({
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
+  const [submitSuccess, setSubmitSuccess] = useState(false);
+  const { register, handleSubmit, control, formState: { errors },reset } = useForm<NewBookData>({
     resolver: yupResolver(bookSchema),
       defaultValues: {
         // Ensure booleans are initialized
-          available: false, 
-          // Ensure arrays are initialized
-      authorIds: [], 
+        available: false, 
+            // Ensure arrays are initialized
+        authorIds: [], 
     }
   });
 
@@ -35,10 +44,33 @@ const BookCreateForm = () => {
     register('authorIds');  
   }, [register]);
 
-  const onSubmit = (data: NewBookData) => {
-    console.log('Book data:', data);
-    // Implement call to API here
+  const navigate = useNavigate();
+    
+    const onSubmit = async (data: NewBookData) => {
+    
+    setIsSubmitting(true);
+    setSubmitError(null);
+    setSubmitSuccess(false);
+
+      try {
+      const formattedData = {
+      ...data,
+      publishedYear: new Date(data.publishedYear).toISOString().split('T')[0],
+    };
+      const newBook = await createNewBook(formattedData);
+      console.log('New book created:', newBook);
+      setSubmitSuccess(true);
+      reset(); // Reset the form after successful submission
+      navigate(`/books/${newBook.id}`); // Navigate to the new book's detail page
+    } catch (error) {
+      console.error('Error creating book:', error);
+      setSubmitError('Failed to create new book. Please try again.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
+    
+
 
   return (
      <form onSubmit={handleSubmit(onSubmit)}>
@@ -78,10 +110,33 @@ const BookCreateForm = () => {
       </div>
       <div>
         <label>Author IDs (comma-separated)</label>
-        <input {...register('authorIds')} placeholder="Author IDs" />
+        <Controller
+          name="authorIds"
+          control={control}
+          render={({ field }) => (
+            <input
+              {...field}
+              onChange={(e) => {
+                const value = e.target.value;
+                const parsedIds = value.split(',')
+                  .map(id => parseInt(id.trim(), 10))
+                  .filter(id => !isNaN(id));
+                field.onChange(parsedIds);
+              }}
+              value={Array.isArray(field.value) ? field.value.join(', ') : ''}
+              placeholder="Author IDs"
+            />
+          )}
+        />
+        {/* <input {...register('authorIds')} placeholder="Author IDs" /> */}
         {errors.authorIds && <p>{errors.authorIds.message}</p>}
       </div>
-      <button type="submit">Create Book</button>
+      <button type="submit" disabled={isSubmitting}>
+        {isSubmitting ? 'Creating...' : 'Create Book'}
+      </button>
+
+      {submitError && <p style={{ color: 'red' }}>{submitError}</p>}
+      {submitSuccess && <p style={{ color: 'green' }}>Book created successfully!</p>}
     </form>
   );
 };

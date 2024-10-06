@@ -16,7 +16,7 @@ export type Book = {
 export type NewBookData = {
     title: string;
     ISBN: string;
-    publishedYear: Date;
+    publishedYear: string;
     description: string;
     image: string;
     available: boolean;
