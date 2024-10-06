@@ -20,6 +20,6 @@ export type NewBookData = {
     description: string;
     image: string;
     available: boolean;
-    authorIds: number[]; 
+    authorIds: number[];  
     categoryId: number; 
 }
