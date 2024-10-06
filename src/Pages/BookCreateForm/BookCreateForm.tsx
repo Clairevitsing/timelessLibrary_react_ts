@@ -11,7 +11,8 @@ const bookSchema = Yup.object().shape({
   ISBN: Yup.string().required('ISBN is required'),
   publishedYear: Yup.string().required('Published year is required'),
   description: Yup.string().required('Description is required'),
-  image: Yup.string().url('Must be a valid URL').required('Image URL is required'),
+  image: Yup.string().required('Image is required'), 
+  // image: Yup.string().url('Must be a valid URL').required('Image URL is required'),
   available: Yup.boolean().required('Availability is required'),
   categoryId: Yup.number()
     .required('Category ID is required')
@@ -28,7 +29,7 @@ const BookCreateForm = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [submitSuccess, setSubmitSuccess] = useState(false);
-  const { register, handleSubmit, control, formState: { errors },reset } = useForm<NewBookData>({
+  const { register, handleSubmit,  setValue, watch, control, formState: { errors },reset } = useForm<NewBookData>({
     resolver: yupResolver(bookSchema),
       defaultValues: {
         // Ensure booleans are initialized
@@ -61,7 +62,7 @@ const BookCreateForm = () => {
       console.log('New book created:', newBook);
       setSubmitSuccess(true);
       reset(); // Reset the form after successful submission
-      navigate(`/books/${newBook.id}`); // Navigate to the new book's detail page
+      navigate(`/book/${newBook.id}`); // Navigate to the new book's detail page
     } catch (error) {
       console.error('Error creating book:', error);
       setSubmitError('Failed to create new book. Please try again.');
@@ -94,11 +95,29 @@ const BookCreateForm = () => {
         <textarea {...register('description')} placeholder="Description" />
         {errors.description && <p>{errors.description.message}</p>}
       </div>
-      <div>
-        <label>Image URL</label>
-        <input {...register('image')} placeholder="Image URL" />
-        {errors.image && <p>{errors.image.message}</p>}
-      </div>
+    <div>
+  <label>Image</label>
+  <input
+    type="file"
+    accept="image/*"
+    onChange={e => {
+      const file = e.target.files ? e.target.files[0] : null;
+      if (file) {
+        const reader = new FileReader();
+        reader.onloadend = () => {
+          setValue('image', reader.result as string);
+        };
+        reader.onerror = () => {
+          console.error('Error occurred while reading the file.');
+          setSubmitError('An error occurred while reading the file.');
+        };
+        reader.readAsDataURL(file);
+      }
+    }}
+  />
+  {errors.image && <p>{errors.image.message}</p>}
+  <img src={watch('image')} alt="Preview" style={{ maxWidth: '200px', maxHeight: '200px' }} />
+</div>
       <div>
         <label>Availability</label>
         <input type="checkbox" {...register('available')} />
