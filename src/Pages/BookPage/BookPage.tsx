@@ -4,16 +4,19 @@ import { fetchBooks } from '../../Services/BookService';
 import { Book } from '../../Models/Book';
 import { useNavigate } from 'react-router-dom'; 
 import './BookPage.css';
+import Pagination from 'react-bootstrap/Pagination';
 
 const BookPage = () => {
-    const [books, setBooks] = useState<Book[]>([]);
+    const [allBooks, setAllBooks] = useState<Book[]>([]);
+    const [currentPage, setCurrentPage] = useState(1);
+    const booksPerPage = 12;
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState('');
     const navigate = useNavigate();
 
     useEffect(() => {
         fetchBooks().then(books => {
-            setBooks(books);
+            setAllBooks(books);
             setIsLoading(false);
         }).catch(error => {
             console.error('Error loading books:', error);
@@ -21,6 +24,14 @@ const BookPage = () => {
             setIsLoading(false);
         });
     }, []);
+
+    const lastIndex = currentPage * booksPerPage;
+    const firstIndex = lastIndex - booksPerPage;
+    const currentBooks = allBooks.slice(firstIndex, lastIndex);
+    const totalPages = Math.ceil(allBooks.length / booksPerPage);
+    const numbers = Array.from({ length: totalPages }, (_, i) => i + 1);
+    
+
 
     if (isLoading) return <div>Loading...</div>;
     if (error) return <div>Error: {error}</div>;
@@ -30,9 +41,25 @@ const BookPage = () => {
          navigate(`/book/${id}`); 
     };
 
-    if (!books.length) {
-    return <p>No books found!</p>; 
-  }
+    const prePage = () => {
+        if (currentPage > 1) {
+            setCurrentPage(currentPage - 1);
+        }
+    };
+
+    const changePage = (id: number) => {
+        setCurrentPage(id);
+    };
+
+    const nextPage = () => {
+        if (currentPage < totalPages) {
+            setCurrentPage(currentPage + 1);
+        }
+    };
+
+    if (!allBooks.length) {
+        return <p>No books found!</p>;
+    }
 
     return (
     <>
@@ -48,7 +75,7 @@ const BookPage = () => {
       <div className="container mt-4">
         <h2>All the Books</h2>
         <div className="row">
-          {books.map(book => (
+          {currentBooks.map(book => (
             <div key={book.id} className="col-sm-6 col-md-4 col-lg-3 mb-3">
               <div className="card">
                 <img src={book.image || 'default-book-image.jpg'} className="card-img-top" alt={book.title} />
@@ -64,8 +91,18 @@ const BookPage = () => {
               </div>
             </div>
           ))}
-        </div>
-      </div>
+                </div>
+                 <Pagination className="justify-content-center">
+                    <Pagination.Item onClick={prePage} disabled={currentPage === 1}>Prev</Pagination.Item>
+                    {numbers.map(n => (
+                        <Pagination.Item key={n} active={n === currentPage} onClick={() => changePage(n)}>
+                            {n}
+                        </Pagination.Item>
+                    ))}
+                    <Pagination.Item onClick={nextPage} disabled={currentPage === totalPages}>Next</Pagination.Item>
+                </Pagination>
+            </div>
+            
     </>
   );
 };
