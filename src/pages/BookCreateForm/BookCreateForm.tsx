@@ -2,8 +2,8 @@ import React, { useEffect, useState} from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
-import { NewBookData, Book } from '../../Models/Book';
-import { createNewBook } from '../../Services/BookService';
+import { NewBookData } from '../../models/Book';
+import { createNewBook } from '../../services/BookService';
 import { useNavigate } from 'react-router-dom';
 
 const bookSchema = Yup.object().shape({

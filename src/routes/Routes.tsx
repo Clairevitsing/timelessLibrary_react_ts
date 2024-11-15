@@ -1,16 +1,16 @@
 import { createBrowserRouter } from "react-router-dom";
 import App from "../App";
-import HomePage from "../Pages/HomePage/HomePage";
-import SearchPage from "../Pages/SearchPage/SearchPage";
-import BookPage from "../Pages/BookPage/BookPage";
-import Contact from "../Pages/Contact/Contact";
-import LoginPage from "../Pages/LoginPage/LoginPage";
-import RegisterPage from "../Pages/RegisterPage/RegisterPage";
-import CategoryPage from "../Pages/CategoryPage/CategoryPage";
-import BookDetailPage from "../Pages/BookDetailPage/BookDetailPage";
-import BookCreateForm from "../Pages/BookCreateForm/BookCreateForm";
-import BookEditPage from "../Pages/BookEditPage/BookEditPage";
-import Voluptaten from "../Components/Voluptaten/Voluptaten";
+import HomePage from "../pages/HomePage/HomePage";
+import SearchPage from "../pages/SearchPage/SearchPage";
+import BookPage from "../pages/BookPage/BookPage";
+import Contact from "../pages/Contact/Contact";
+import LoginPage from "../pages/LoginPage/LoginPage";
+import RegisterPage from "../pages/RegisterPage/RegisterPage";
+import CategoryPage from "../pages/CategoryPage/CategoryPage";
+import BookDetailPage from "../pages/BookDetailPage/BookDetailPage";
+import BookCreateForm from "../pages/BookCreateForm/BookCreateForm";
+import BookEditPage from "../pages/BookEditPage/BookEditPage";
+import Voluptaten from "../components/Voluptaten/Voluptaten";
 
 export const router = createBrowserRouter([
     {

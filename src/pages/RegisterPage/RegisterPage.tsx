@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
-import { useAuth } from "../../Context/useAuth";
+import { useAuth } from "../../context/useAuth";
 
 type RegisterFormsInputs = {
   firstName: string,

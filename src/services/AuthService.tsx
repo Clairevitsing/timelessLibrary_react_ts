@@ -1,6 +1,6 @@
 import axios from "axios";
-import { handleError } from "../Helpers/ErrorHandler";
-import { UserProfileToken, UserProfile } from "../Models/User";
+import { handleError } from "../helpers/ErrorHandler";
+import { UserProfileToken, UserProfile } from "../models/User";
 
 // Define the base API URL as a constant
 const BASE_API_URL = "http://127.0.0.1:8000/api";

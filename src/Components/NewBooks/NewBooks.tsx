@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { fetchNewBooks } from '../../Services/BookService';
-import { Book } from '../../Models/Book';
+import { fetchNewBooks } from '../../services/BookService';
+import { Book } from '../../models/Book';
 import { useNavigate } from 'react-router-dom';  
 
 const NewBooks: React.FC = () => {

@@ -1,7 +1,6 @@
-// src/services/BookService.tsx
 import axios from 'axios';
-import { Book, NewBookData } from '../Models/Book';
-import { Author } from '../Models/Author';
+import { Book, NewBookData } from '../models/Book';
+import { Author } from '../models/Author';
 
 const BASE_API_URL = "http://127.0.0.1:8000/api/books";
 

@@ -2,10 +2,10 @@ import React, { useEffect }  from 'react';
 import { Navbar, Nav, NavDropdown, Form, FormControl, Button, Container } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import './Navbar.css';
-import logo from '../Assets/logo.png';
+import logo from '../../assets/logo.png';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSignInAlt,faSignOutAlt, faShoppingCart,faUser} from '@fortawesome/free-solid-svg-icons';
-import { useAuth } from '../../Context/useAuth'
+import { useAuth } from '../../context/useAuth'
 
   
 const NavbarComponent: React.FC = () => {

@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { fetchBookDetails } from '../../Services/BookService';
-import { Book } from '../../Models/Book'; 
-import { useAuth } from '../../Context/useAuth';
+import { fetchBookDetails } from '../../services/BookService';
+import { Book } from '../../models/Book';
+import { useAuth } from '../../context/useAuth';
 import { useNavigate } from 'react-router-dom';
-import { Link } from 'react-router-dom';
+
 
 
 const BookDetailPage = () => {
@@ -37,8 +37,6 @@ const BookDetailPage = () => {
 
     return (
         <div className="container mt-4 d-flex justify-content-center align-items-center">
-            <div className="row">
-                <div className="col-md-8">
                     <div className="card" style={{ width: '30rem' }}>
                         <img className="card-img-top" src={book.image} alt={`Cover of ${book.title}`} />
                         <div className="card-body">
@@ -69,14 +67,6 @@ const BookDetailPage = () => {
                         </div>
                     </div>
                 </div>
-                    <div className="col-md-4">
-                      <Link to="/book/new" className="btn btn-primary">
-                        Add New Book
-                        </Link>
-                    </div>
-              
-            </div>
-        </div>
     );
 };
 

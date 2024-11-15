@@ -2,7 +2,7 @@ import React from 'react';
 import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Link } from 'react-router-dom';
-import { useAuth } from "../../Context/useAuth";
+import { useAuth } from "../../context/useAuth";
 import { useForm } from "react-hook-form";
 import 'react-toastify/dist/ReactToastify.css'
 

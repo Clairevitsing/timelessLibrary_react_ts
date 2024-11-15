@@ -1,9 +1,9 @@
 import React, { createContext, useState, useEffect, useContext } from "react";
-import { UserProfile, UserProfileToken } from "../Models/User";
+import { UserProfile, UserProfileToken } from "../models/User";
 import { useNavigate } from "react-router-dom";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { loginAPI, registerAPI } from "../Services/AuthService";
+import { loginAPI, registerAPI } from "../services/AuthService";
 
 type UserContextType = {
     user: UserProfile | null;
