@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { fetchBookDetails } from '../../services/BookService';
 import { Book } from '../../models/Book';
 import { useAuth } from '../../context/useAuth';
-import { useNavigate } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import cartSlice from '../../redux/cartSlice';
+
 
 
 
@@ -14,6 +16,12 @@ const BookDetailPage = () => {
     const [error, setError] = useState('');
     const { user, isLoggedIn } = useAuth();
     const isAdmin = user && Array.isArray(user.roles) && user.roles.includes('ROLE_ADMIN');
+
+    const { cartBookIds} = useSelector((state) => state.cart)
+    const { addToCart, removeFromCart } = cartSlice.actions
+    const dispatch = useDispatch()
+
+    console.log(cartBookIds)
     
     const navigate = useNavigate();
 
@@ -57,7 +65,8 @@ const BookDetailPage = () => {
                             ))}
                         </ul>
                         <div className="card-body">
-                            <button className="btn btn-primary">Add to Card</button>
+                    {!cartBookIds.includes(book.id) && (< button className="btn btn-primary" onClick={() => dispatch(addToCart(book.id))}>Add to Card</button>)}
+                    {<button className="btn btn-primary" onClick={() => dispatch(removeFromCart(book.id))}>Add to Card</button>}
                             {isAdmin && (
                                 <>
                                     <button onClick={() => navigate(`/edit-book/${book.id}`)} className="btn btn-secondary">Edit</button>

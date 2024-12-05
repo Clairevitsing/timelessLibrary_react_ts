@@ -10,7 +10,10 @@ import CategoryPage from "../pages/CategoryPage/CategoryPage";
 import BookDetailPage from "../pages/BookDetailPage/BookDetailPage";
 import BookCreateForm from "../pages/BookCreateForm/BookCreateForm";
 import BookEditPage from "../pages/BookEditPage/BookEditPage";
-import Voluptaten from "../components/Voluptaten/Voluptaten";
+// import evenist from "../components/evenist/evenist";
+// import porro from "../components/porro/porro";
+// import vel from "../components/vel/vel";
+// import ethh from "../components/ethh/ethh";
 
 export const router = createBrowserRouter([
     {
@@ -28,17 +31,17 @@ export const router = createBrowserRouter([
             { path: "book/edit", element: <BookEditPage /> },
             { path: "book/new", element: <BookCreateForm /> },
             
-            {
-                path: "category/:ticker",
-                element: <CategoryPage />, 
-                children: [
-                    { path: "voluptaten", element: <Voluptaten /> },
-                    { path: "login", element: <LoginPage /> },
-                    { path: "login", element: <LoginPage /> },
-                    { path: "login", element: <LoginPage /> },
-                    { path: "login", element: <LoginPage /> },
-                ]
-            },
+            // {
+            //     path: "category/:ticker",
+            //     element: <CategoryPage />, 
+            //     children: [
+            //         { path: "voluptaten", element: <Voluptaten /> },
+            //         { path: "evenist", element: <evenist /> },
+            //         { path: "porro", element: <porro /> },
+            //         { path: "vel", element: <vel /> },
+            //         { path: "ethh", element: <ethh /> },
+            //     ]
+            // },
 
         ]
 
