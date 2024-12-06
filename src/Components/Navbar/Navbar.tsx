@@ -6,10 +6,13 @@ import logo from '../../assets/logo.png';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSignInAlt,faSignOutAlt, faShoppingCart,faUser} from '@fortawesome/free-solid-svg-icons';
 import { useAuth } from '../../context/useAuth'
+import {useSelector} from "react-redux"
 
   
 const NavbarComponent: React.FC = () => {
-  const { user, logout ,isLoggedIn} = useAuth(); 
+  const { user, logout, isLoggedIn } = useAuth(); 
+  const { cartBookIds } = useSelector((state: any) => state.cart || { cartBookIds: [] });
+
 
   useEffect(() => {
     console.log("Current User State:", user);
@@ -61,11 +64,20 @@ const NavbarComponent: React.FC = () => {
             {/* <Nav.Link href="#" className="btn btn-outline-success ms-2">
               <FontAwesomeIcon icon={faShoppingCart} className="me-1" />Cart (0)
             </Nav.Link> */}
-            <Button style={{ width: "3rem", height: "3rem", position: "relative" }} variant="outline-primary" className="rounded-circle">
+            <Nav.Link
+                as={Link}
+                to="/cart"
+                className={window.location.pathname === '/cart' ? 'selected' : ''}
+              >
+                <FontAwesomeIcon icon={faShoppingCart} className="me-1" />
+                Cart ({cartBookIds?.length || 0})
+              </Nav.Link>
+
+            {/* <Button style={{ width: "3rem", height: "3rem", position: "relative" }} variant="outline-primary" className="rounded-circle">
               <FontAwesomeIcon icon={faShoppingCart} className="me-1" />
               <div className="rounded-circle bg-danger d-flex justify-content-center align-items-center" style={{ color: "white", width: "1.5rem", height: "1.5rem", position: "absolute", bottom: 0, right: 0, transform:"translate(25%,25%)"}}>0</div>
           <div className="rounded-circle bg-danger d-flex justify-content-center align-items-center"></div>
-           </Button>
+           </Button> */}
           </Nav>
         </Navbar.Collapse>
       </Container>

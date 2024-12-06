@@ -6,3 +6,8 @@
 .navbar-welcome {
     font-size: 0.75rem;
 }
+
+.selected {
+    font-weight: bold;
+    text-decoration: underline;
+}

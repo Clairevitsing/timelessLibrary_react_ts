@@ -1,14 +1,14 @@
-import { configureStore } from '@reduxjs/toolkit'
-import cartSlice from './cartSlice'
+import { configureStore } from '@reduxjs/toolkit';
+import bookReducer from '../slices/bookSlice';
+import cartReducer from '../slices/cartSlice';
 
 const store = configureStore({
-    reducer: {
-        cart:cartSlice.reducer
-    },
-})
+  reducer: {
+    books: bookReducer,
+    cart: cartReducer,
+  },
+});
 
-export default store;
-
-// Types utiles pour TypeScript
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
+export default store;
