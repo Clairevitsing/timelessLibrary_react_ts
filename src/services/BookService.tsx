@@ -57,21 +57,87 @@ export const fetchNewBooks = async (): Promise<Book[]> => {
 };
 
 
+// export const fetchBookDetails = async (bookId: number): Promise<Book> => {
+//     try {
+//         const response = await axios.get(`${BASE_API_URL}/${bookId}`);
+//         const bookData = response.data;
+//         return {
+//             ...bookData,
+//             publishedYear: new Date(bookData.publishedYear),
+//             authors: bookData.authors,
+//             category: bookData.category
+//         };
+//     } catch (error) {
+//         console.error('Error fetching book details:', error);
+//         throw new Error('Failed to fetch book details');
+//     }
+// };
+
 export const fetchBookDetails = async (bookId: number): Promise<Book> => {
     try {
-        const response = await axios.get(`${BASE_API_URL}/${bookId}`);
+        console.log(`Attempting to fetch book details for ID: ${bookId}`);
+        console.log(`Full URL: ${BASE_API_URL}/${bookId}`);
+
+        const response = await axios.get(`${BASE_API_URL}/${bookId}`, {
+            timeout: 10000, 
+            headers: {
+                'Accept': 'application/json'
+            }
+        });
+
+        console.log('API Response Status:', response.status);
+        console.log('Full API Response:', JSON.stringify(response.data, null, 2));
+
+        if (!response.data) {
+            console.error('No book data found in response');
+            throw new Error('No book data found');
+        }
+
         const bookData = response.data;
+
+        // Validate essential book properties
+        if (!bookData.id || !bookData.title) {
+            console.error('Invalid book data structure', bookData);
+            throw new Error('Invalid book data structure');
+        }
+
         return {
-            ...bookData,
-            publishedYear: new Date(bookData.publishedYear), 
-            authors: bookData.authors,
-            category: bookData.category
+            id: bookData.id,
+            title: bookData.title,
+            ISBN: bookData.ISBN,
+            image: bookData.image,
+            description: bookData.description,
+            available: bookData.available,
+            publishedYear: new Date(bookData.publishedYear),
+            authors: bookData.authors || [],
+            category: bookData.category || null
         };
-    } catch (error) {
-        console.error('Error fetching book details:', error);
-        throw new Error('Failed to fetch book details');
+    } catch (error: any) {
+        console.error('Detailed error fetching book details:', {
+            message: error.message,
+            code: error.code,
+            response: error.response?.data,
+            status: error.response?.status
+        });
+
+        // Specific error handling
+        if (error.response) {
+            if (error.response.status === 404) {
+                throw new Error(`Book with ID ${bookId} not found`);
+            } else if (error.response.status === 500) {
+                throw new Error('Server error. Please try again later.');
+            }
+        } else if (error.request) {
+            throw new Error('No response received from server. Check your network connection.');
+        } else {
+            throw new Error('Error setting up the request. Please try again.');
+        }
     }
+
+    // Add this line to explicitly satisfy TypeScript that all code paths return a value
+    throw new Error('An unknown error occurred');
 };
+
 
 export const fetchBookDetailsForEdit = async (bookId: number): Promise<Book> => {
   try {

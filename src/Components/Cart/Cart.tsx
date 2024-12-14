@@ -1,27 +1,36 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { RootState } from '../../redux/store';
+import { RootState, AppDispatch } from '../../redux/store';
 import { removeFromCart } from '../../slices/cartSlice';
+import { fetchBooksAsync } from '../../slices/booksSlice';
 
 const Cart: React.FC = () => {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
 
-  // Get books and cartBookIds from the Redux store
+  // Récupérer les livres et les IDs du panier depuis Redux
   const books = useSelector((state: RootState) => state.books.books);
   const cartBookIds = useSelector((state: RootState) => state.cart.cartBookIds);
+  const booksStatus = useSelector((state: RootState) => state.books.status);
 
-  // Log books and cartBookIds to verify data
-  console.log('Books from Redux:', books);
-  console.log('Cart Book IDs:', cartBookIds);
+  // Charger les livres si nécessaire
+  useEffect(() => {
+    if (booksStatus === 'idle') {
+      dispatch(fetchBooksAsync());
+    }
+  }, [dispatch, booksStatus]);
 
-  // Filter the books that are in the cart
+  // Filtrer les livres présents dans le panier
   const cartBookData = books.filter((book) => cartBookIds.includes(book.id));
 
-  // Log filtered cart data
-  console.log('Filtered Cart Book Data:', cartBookData);
+  const handleRemove = (id: number) => {
+    dispatch(removeFromCart(id));
+  };
 
   return (
     <div className="cart">
+      {booksStatus === 'loading' && <div>Loading books...</div>}
+      {booksStatus === 'failed' && <div>Error loading books</div>}
+
       {cartBookData.length > 0 ? (
         <div className="cart-book">
           <h3 className="header">Items in Cart</h3>
@@ -33,7 +42,7 @@ const Cart: React.FC = () => {
                 <p className="text-truncate">{book.ISBN}</p>
                 <button
                   className="btn btn-danger"
-                  onClick={() => dispatch(removeFromCart(book.id))}
+                  onClick={() => handleRemove(book.id)}
                 >
                   <i className="bi bi-trash-fill" /> Remove Item
                 </button>
@@ -54,5 +63,7 @@ const Cart: React.FC = () => {
 };
 
 export default Cart;
+
+
 
 

@@ -1,4 +1,3 @@
-// cartSlice.ts
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 type CartState = {
@@ -14,7 +13,10 @@ const cartSlice = createSlice({
   initialState,
   reducers: {
     addToCart: (state, action: PayloadAction<number>) => {
-      state.cartBookIds = [action.payload, ...state.cartBookIds];
+      // Ajouter un livre au panier si l'ID n'existe pas déjà
+      if (!state.cartBookIds.includes(action.payload)) {
+        state.cartBookIds = [action.payload, ...state.cartBookIds];
+      }
     },
     removeFromCart: (state, action: PayloadAction<number>) => {
       const indexOfId = state.cartBookIds.indexOf(action.payload);
@@ -30,4 +32,5 @@ const cartSlice = createSlice({
 
 export const { addToCart, removeFromCart, clearAllItems } = cartSlice.actions;
 export default cartSlice.reducer;
+
 

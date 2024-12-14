@@ -14,6 +14,7 @@ const initialState: BookState = {
   error: null,
 };
 
+// Créer un thunk pour récupérer les livres
 export const fetchBooksAsync = createAsyncThunk('books/fetchBooks', async () => {
   const books = await fetchBooks();
   return books;
@@ -40,3 +41,4 @@ const bookSlice = createSlice({
 });
 
 export default bookSlice.reducer;
+
