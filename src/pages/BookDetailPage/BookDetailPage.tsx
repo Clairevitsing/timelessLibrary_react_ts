@@ -59,23 +59,26 @@ const BookDetailPage = () => {
           ))}
         </ul>
         <div className="card-body">
-            {/* Button logic based on book availability */}
-          {!book.available ? (
-            // If the book is unavailable, remove it from the cart
-            <button className="btn btn-danger" onClick={() => dispatch(removeFromCart(book.id))}>
-              Remove from Cart
-            </button>
-          ) : !cartBookIds.includes(book.id) ? (
-            // If the book is available and not in the cart, add it to the cart
-            <button className="btn btn-primary" onClick={() => dispatch(addToCart(book.id))}>
-              Add to Cart
-            </button>
-          ) : (
-            // If the book is available and already in the cart, remove it from the cart
-            <button className="btn btn-danger" onClick={() => dispatch(removeFromCart(book.id))}>
-              Remove from Cart
-            </button>
-          )}
+          {/* Button logic based on book availability */}
+            {
+              !book.available ? (
+                // If the book is unavailable, disable the button
+                <button className="btn btn-secondary" disabled>
+                  Unavailable
+                </button>
+              ) : !cartBookIds.includes(book.id) ? (
+                // If the book is available and not in the cart, add it to the cart
+                <button className="btn btn-primary" onClick={() => dispatch(addToCart(book.id))}>
+                  Add to Cart
+                </button>
+              ) : (
+                // If the book is available and already in the cart, remove it from the cart
+                <button className="btn btn-danger" onClick={() => dispatch(removeFromCart(book.id))}>
+                  Remove from Cart
+                </button>
+              )
+            }
+
           {isAdmin && (
             <>
               <button onClick={() => navigate(`/edit-book/${book.id}`)} className="btn btn-secondary">
