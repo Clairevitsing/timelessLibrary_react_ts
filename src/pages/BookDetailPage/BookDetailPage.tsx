@@ -59,11 +59,19 @@ const BookDetailPage = () => {
           ))}
         </ul>
         <div className="card-body">
-          {!cartBookIds.includes(book.id) ? (
+            {/* Button logic based on book availability */}
+          {!book.available ? (
+            // If the book is unavailable, remove it from the cart
+            <button className="btn btn-danger" onClick={() => dispatch(removeFromCart(book.id))}>
+              Remove from Cart
+            </button>
+          ) : !cartBookIds.includes(book.id) ? (
+            // If the book is available and not in the cart, add it to the cart
             <button className="btn btn-primary" onClick={() => dispatch(addToCart(book.id))}>
               Add to Cart
             </button>
           ) : (
+            // If the book is available and already in the cart, remove it from the cart
             <button className="btn btn-danger" onClick={() => dispatch(removeFromCart(book.id))}>
               Remove from Cart
             </button>

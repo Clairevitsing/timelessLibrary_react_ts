@@ -150,6 +150,33 @@ export const fetchBookDetailsForEdit = async (bookId: number): Promise<Book> => 
   }
 };
 
+export const updateBookAvailability = async (id: number, available: boolean) => {
+  try {
+    const response = await axios.patch(
+      `http://127.0.0.1:8000/api/books/${id}/availability`,
+      { available }, // Envoi des données au backend
+      { headers: { 'Content-Type': 'application/json' } } // En-têtes pour JSON
+    );
+    return response.data; // Retourne les données reçues du backend
+  } catch (error) {
+    // Vérification si c'est une erreur Axios
+    if (axios.isAxiosError(error)) {
+      console.error(
+        'Erreur lors de la mise à jour de la disponibilité',
+        error.response?.data || error.message
+      );
+    } else {
+      // Pour les autres types d'erreurs
+      console.error('Une erreur inattendue est survenue', (error as Error).message);
+    }
+
+    throw error; // Relance l'erreur après l'avoir loggée
+  }
+};
+
+
+
+
 export const createNewBook = async (bookData: NewBookData): Promise<Book> => {
     try {
         const response = await axios.post(`${BASE_API_URL}/new`, bookData);
