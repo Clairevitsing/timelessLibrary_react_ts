@@ -10,7 +10,7 @@ import CategoryPage from "../pages/CategoryPage/CategoryPage";
 import BookDetailPage from "../pages/BookDetailPage/BookDetailPage";
 import BookCreateForm from "../pages/BookCreateForm/BookCreateForm";
 import BookEditPage from "../pages/BookEditPage/BookEditPage";
-import Cart from "../components/Cart/Cart";
+import Cart from "../Components/Cart/Cart";
 
 export const router = createBrowserRouter([
     {

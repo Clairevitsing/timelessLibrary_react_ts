@@ -1,5 +1,5 @@
 import React from 'react';
-import  NewBooks  from '../../components/NewBooks/NewBooks'
+import  NewBooks  from '../../Components/NewBooks/NewBooks'
 
 interface Props {
     
